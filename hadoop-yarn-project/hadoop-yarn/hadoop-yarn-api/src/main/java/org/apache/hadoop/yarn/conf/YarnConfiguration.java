@@ -981,6 +981,14 @@ public class YarnConfiguration extends Configuration {
   public static final String NM_DOCKER_CONTAINER_EXECUTOR_EXEC_NAME =
     NM_PREFIX + "docker-container-executor.exec-name";
 
+  
+  public static final String NM_DOCKER_CONTAINER_EXECUTOR_NET=
+		  NM_PREFIX + "net";
+  
+
+  public static final String NM_DEFAULT_DOCKER_CONTAINER_EXECUTOR_NET=
+		  "host";
+  
   /** The default docker executor (For DockerContainerExecutor).*/
   public static final String NM_DEFAULT_DOCKER_CONTAINER_EXECUTOR_EXEC_NAME =
           "/usr/bin/docker";
