@@ -1,5 +1,5 @@
 resourcemanager:
-  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-acs
+  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-f0dc636
   restart: always
   net: ${NETWORK}
   container_name: rm1
@@ -7,7 +7,7 @@ resourcemanager:
   environment:
    - "affinity:container!=*resourcemanager*"
 nodemanager:
-  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-acs
+  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-f0dc636
   restart: always
   net: ${NETWORK}
   command: ./bin/yarn --config ./etc/hadoop  nodemanager

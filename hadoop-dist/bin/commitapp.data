@@ -1,0 +1,25 @@
+  {
+    "application-id":"application_1459515498349_0001",
+    "application-name":"nginx",
+    "am-container-spec":
+    {
+      "environment":
+      {
+        "entry":
+        [
+          {
+            "key": "yarn.nodemanager.net",
+            "value": "vlan217"
+          },
+          {
+            "key": "yarn.nodemanager.docker-container-executor.image-name",
+            "value": "nginx"
+          }
+        ]
+      }
+    },
+    "unmanaged-AM":false,
+    "max-app-attempts":2,
+    "application-type":"YARN",
+    "keep-containers-across-application-attempts":false
+  }
