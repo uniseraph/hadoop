@@ -157,8 +157,10 @@ public class DockerContainerExecutor extends ContainerExecutor {
     String dockerExecutor = getConf().get(YarnConfiguration.NM_DOCKER_CONTAINER_EXECUTOR_EXEC_NAME,
         YarnConfiguration.NM_DEFAULT_DOCKER_CONTAINER_EXECUTOR_EXEC_NAME);
 
-    String net = getConf().get(YarnConfiguration.NM_DOCKER_CONTAINER_EXECUTOR_NET ,
-    		YarnConfiguration.NM_DEFAULT_DOCKER_CONTAINER_EXECUTOR_NET);
+    String net = container.getLaunchContext().getEnvironment().get(YarnConfiguration.NM_DOCKER_CONTAINER_EXECUTOR_NET);
+    if (Strings.isNullOrEmpty(net)) { 
+    	net =   YarnConfiguration.NM_DEFAULT_DOCKER_CONTAINER_EXECUTOR_NET;
+    }
     
     FsPermission dirPerm = new FsPermission(APPDIR_PERM);
     ContainerId containerId = container.getContainerId();
