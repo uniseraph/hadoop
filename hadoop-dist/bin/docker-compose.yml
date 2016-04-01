@@ -1,0 +1,20 @@
+resourcemanager:
+  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-acs
+  restart: always
+  net: ${NETWORK}
+  container_name: rm1
+  command: ./bin/yarn --config ./etc/hadoop  resourcemanager
+  environment:
+   - "affinity:container!=*resourcemanager*"
+nodemanager:
+  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-acs
+  restart: always
+  net: ${NETWORK}
+  command: ./bin/yarn --config ./etc/hadoop  nodemanager
+  volumes:
+   - /usr/bin/docker:/usr/bin/docker
+   - /var/run/docker.sock:/var/run/docker.sock
+  environment:
+   - "affinity:container!=*nodemanager*"
+   - "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.docker-container-executor.exec-name=/usr/bin/docker -Dyarn.nodemanager.container-executor.class=org.apache.hadoop.yarn.server.nodemanager.DockerContainerExecutor"
+
