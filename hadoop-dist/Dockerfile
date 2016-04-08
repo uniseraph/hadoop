@@ -17,3 +17,4 @@ RUN ln -s /usr/local/hadoop-2.7.2 /usr/local/hadoop
 
 
 WORKDIR /usr/local/hadoop
+ADD ./yarn-site.xml /usr/local/hadoop/etc/hadoop/yarn-site.xml

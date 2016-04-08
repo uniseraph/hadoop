@@ -18,7 +18,7 @@ nm1:
    - /var/run/docker.sock:/var/run/docker.sock
   environment:
    - "affinity:container!=*nodemanager*"
-   - "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm1 -Dyarn.nodemanager.docker-container-executor.exec-name=/usr/bin/docker -Dyarn.nodemanager.container-executor.class=org.apache.hadoop.yarn.server.nodemanager.DockerContainerExecutor"
+   - "YARN_NODEMANAGER_OPTS=-Dlog4j.logger.org.apache.hadoop.yarn.server.nodemanager=DEBUG,console -Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm1 -Dyarn.nodemanager.docker-container-executor.exec-name=/usr/bin/docker -Dyarn.nodemanager.container-executor.class=org.apache.hadoop.yarn.server.nodemanager.DockerContainerExecutor"
 nm2:
   image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-dev
   restart: always
@@ -31,7 +31,7 @@ nm2:
    - /var/run/docker.sock:/var/run/docker.sock
   environment:
    - "affinity:container!=*nodemanager*"
-   - "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm2 -Dyarn.nodemanager.docker-container-executor.exec-name=/usr/bin/docker -Dyarn.nodemanager.container-executor.class=org.apache.hadoop.yarn.server.nodemanager.DockerContainerExecutor"
+   - "YARN_NODEMANAGER_OPTS=-Dlog4j.logger.org.apache.hadoop.yarn.server.nodemanager=DEBUG,console -Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm2 -Dyarn.nodemanager.docker-container-executor.exec-name=/usr/bin/docker -Dyarn.nodemanager.container-executor.class=org.apache.hadoop.yarn.server.nodemanager.DockerContainerExecutor"
 nm3:
   image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-dev
   restart: always
@@ -44,5 +44,5 @@ nm3:
    - /var/run/docker.sock:/var/run/docker.sock
   environment:
    - "affinity:container!=*nodemanager*"
-   - "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm3 -Dyarn.nodemanager.docker-container-executor.exec-name=/usr/bin/docker -Dyarn.nodemanager.container-executor.class=org.apache.hadoop.yarn.server.nodemanager.DockerContainerExecutor"
+   - "YARN_NODEMANAGER_OPTS=-Dlog4j.logger.org.apache.hadoop.yarn.server.nodemanager=DEBUG,console -Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm3 -Dyarn.nodemanager.docker-container-executor.exec-name=/usr/bin/docker -Dyarn.nodemanager.container-executor.class=org.apache.hadoop.yarn.server.nodemanager.DockerContainerExecutor"
 
