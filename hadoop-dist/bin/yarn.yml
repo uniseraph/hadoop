@@ -1,5 +1,5 @@
 rm:
-  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-76d6ba0
+  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-f64435f
   restart: always
   net: ${NETWORK}
   container_name: rm1
@@ -8,7 +8,7 @@ rm:
    - "affinity:container!=*resourcemanager*"
    - "DOCKER_TLS_VERIFY=0"
 nm1:
-  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-76d6ba0
+  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-f64435f
   restart: always
   net: ${NETWORK}
   hostname: nm1
@@ -24,7 +24,7 @@ nm1:
    - "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm1 "
    #- "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm1 -Dyarn.nodemanager.docker-container-executor.exec-name=/usr/bin/docker -Dyarn.nodemanager.container-executor.class=org.apache.hadoop.yarn.server.nodemanager.NativeDockerExecutor"
 nm2:
-  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-76d6ba0
+  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-f64435f
   restart: always
   net: ${NETWORK}
   hostname: nm2
@@ -40,7 +40,7 @@ nm2:
    - "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm2 "
    #- "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm2 -Dyarn.nodemanager.docker-container-executor.exec-name=/usr/bin/docker -Dyarn.nodemanager.container-executor.class=org.apache.hadoop.yarn.server.nodemanager.NativeDockerExecutor"
 nm3:
-  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-76d6ba0
+  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-f64435f
   restart: always
   net: ${NETWORK}
   hostname: nm3
