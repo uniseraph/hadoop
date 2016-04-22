@@ -1,0 +1,5 @@
+target/antrun
+target/hadoop-2.7.2
+target/hadoop-dist-2.7.2-javadoc.jar
+target/hadoop-2.7.2-src.tar.gz
+target/hadoop-dist-2.7.2.jar

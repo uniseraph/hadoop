@@ -205,9 +205,9 @@ public class DockerContainerExecutor extends ContainerExecutor {
     StringBuilder commands = new StringBuilder();
     String commandStr = commands.append(dockerExecutor)
         .append(" ")
-        .append("run")
+        .append("run -d ")
         .append(" ")
-        .append("--rm --net="+net)
+        .append("--net="+net)
         .append(" ")
         .append(" --name " + containerIdStr)
         .append(localDirMount)

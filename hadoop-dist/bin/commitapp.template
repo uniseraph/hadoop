@@ -1,5 +1,5 @@
   {
-    "application-id":"application_1461310275867_0005",
+    "application-id":APPLICATION_ID,
     "application-name":"nginx",
     "am-container-spec":
     {
