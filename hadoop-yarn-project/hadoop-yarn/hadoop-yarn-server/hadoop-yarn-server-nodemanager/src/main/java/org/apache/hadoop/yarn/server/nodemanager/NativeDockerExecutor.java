@@ -22,6 +22,7 @@ import com.github.dockerjava.api.model.HostConfig;
 import com.github.dockerjava.api.model.RestartPolicy;
 import com.github.dockerjava.core.DockerClientBuilder;
 import com.github.dockerjava.core.DockerClientConfig;
+import com.github.dockerjava.core.DockerClientConfig.DockerClientConfigBuilder;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;;
 
@@ -51,11 +52,13 @@ public class NativeDockerExecutor extends ContainerExecutor {
 		// ConfigBuilder cb = new ConfigBuilder().withDockerUrl(DOCKER_HOST);
 		// dockerClient = new DefaultDockerClient(cb.build());
 
-		DockerClientConfig  config= DockerClientConfig.createDefaultConfigBuilder()
+		DockerClientConfigBuilder  builder= DockerClientConfig.createDefaultConfigBuilder()
 				.withDockerTlsVerify(false)
-				.withDockerHost(DOCKER_HOST)
-				.build();
-		dockerClient = DockerClientBuilder.getInstance(config).build();
+				.withDockerCertPath("")
+				.withDockerHost(DOCKER_HOST);
+		
+				
+		dockerClient = DockerClientBuilder.getInstance(builder).build();
 
 	}
 
