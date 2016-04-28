@@ -983,9 +983,18 @@ public class YarnConfiguration extends Configuration {
 
   
   public static final String NM_DOCKER_CONTAINER_EXECUTOR_NET=
-		  NM_PREFIX + "net";
+		  NM_PREFIX + "docker-container-executor.net";
   
 
+  public static final String NM_DOCKER_CONTAINER_EXECUTOR_WORKDIR=
+		  NM_PREFIX + "docker-container-executor.workdir" ;
+  
+
+  public static final String NM_DOCKER_CONTAINER_EXECUTOR_SCRIPT=
+		  NM_PREFIX + "docker-container-executor.script" ;
+  
+  
+  
   public static final String NM_DEFAULT_DOCKER_CONTAINER_EXECUTOR_NET=
 		  "host";
   

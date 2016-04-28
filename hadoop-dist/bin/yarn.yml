@@ -1,14 +1,13 @@
 rm:
-  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-f64435f
+  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-dev
   restart: always
   net: ${NETWORK}
   container_name: rm1
   command: ./bin/yarn --config ./etc/hadoop  resourcemanager
   environment:
    - "affinity:container!=*resourcemanager*"
-   - "DOCKER_TLS_VERIFY=0"
 nm1:
-  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-f64435f
+  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-dev
   restart: always
   net: ${NETWORK}
   hostname: nm1
@@ -19,12 +18,11 @@ nm1:
    - /var/run/docker.sock:/var/run/docker.sock
   environment:
    - "affinity:container!=*nodemanager*"
-   - "DOCKER_TLS_VERIFY=0"
-   - "YARN_ROOT_LOGGER=INFO,console"
+   - "YARN_ROOT_LOGGER=DEBUG,console"
    - "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm1 "
    #- "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm1 -Dyarn.nodemanager.docker-container-executor.exec-name=/usr/bin/docker -Dyarn.nodemanager.container-executor.class=org.apache.hadoop.yarn.server.nodemanager.NativeDockerExecutor"
 nm2:
-  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-f64435f
+  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-dev
   restart: always
   net: ${NETWORK}
   hostname: nm2
@@ -35,12 +33,11 @@ nm2:
    - /var/run/docker.sock:/var/run/docker.sock
   environment:
    - "affinity:container!=*nodemanager*"
-   - "YARN_ROOT_LOGGER=INFO,console"
-   - "DOCKER_TLS_VERIFY=0"
+   - "YARN_ROOT_LOGGER=DEBUG,console"
    - "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm2 "
    #- "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm2 -Dyarn.nodemanager.docker-container-executor.exec-name=/usr/bin/docker -Dyarn.nodemanager.container-executor.class=org.apache.hadoop.yarn.server.nodemanager.NativeDockerExecutor"
 nm3:
-  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-f64435f
+  image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-dev
   restart: always
   net: ${NETWORK}
   hostname: nm3
@@ -51,8 +48,7 @@ nm3:
    - /var/run/docker.sock:/var/run/docker.sock
   environment:
    - "affinity:container!=*nodemanager*"
-   - "YARN_ROOT_LOGGER=INFO,console"
-   - "DOCKER_TLS_VERIFY=0"
+   - "YARN_ROOT_LOGGER=DEBUG,console"
    - "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm3"
    #- "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm3 -Dyarn.nodemanager.docker-container-executor.exec-name=/usr/bin/docker -Dyarn.nodemanager.container-executor.class=org.apache.hadoop.yarn.server.nodemanager.NativeDockerExecutor"
 

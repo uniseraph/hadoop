@@ -1,5 +1,5 @@
   {
-    "application-id":"application_1461310275867_0005",
+    "application-id":"application_1461759232746_0001",
     "application-name":"nginx",
     "am-container-spec":
     {
@@ -8,8 +8,16 @@
         "entry":
         [
           {
-            "key": "yarn.nodemanager.net",
+            "key": "yarn.nodemanager.docker-container-executor.net",
             "value": "vlan217"
+          },
+          {
+            "key": "yarn.nodemanager.docker-container-exector.workdir",
+            "value": ""
+          },
+          {
+            "key": "yarn.nodemanager.docker-container-executor.script",
+            "value": ""
           },
           {
             "key": "yarn.nodemanager.docker-container-executor.image-name",

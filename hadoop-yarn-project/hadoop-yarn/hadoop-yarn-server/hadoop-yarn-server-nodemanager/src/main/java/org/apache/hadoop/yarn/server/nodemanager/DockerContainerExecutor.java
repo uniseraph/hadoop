@@ -197,8 +197,17 @@ public class DockerContainerExecutor extends ContainerExecutor {
         new Path(containerWorkDir, ContainerLaunch.FINAL_CONTAINER_TOKENS_FILE);
     lfs.util().copy(nmPrivateTokensPath, tokenDst);
 
-
-
+    String workdir= container.getLaunchContext().getEnvironment().get(YarnConfiguration.NM_DOCKER_CONTAINER_EXECUTOR_WORKDIR);
+ 
+    if ( !Strings.isNullOrEmpty(workdir) ) {
+    	workdir = " -w " + workdir;
+    }
+    
+    String dockerScript= container.getLaunchContext().getEnvironment().get(YarnConfiguration.NM_DOCKER_CONTAINER_EXECUTOR_SCRIPT);
+    if (Strings.isNullOrEmpty(dockerScript)){
+    	dockerScript=" ";
+    }
+    
     String localDirMount = toMount(localDirs);
     String logDirMount = toMount(logDirs);
     String containerWorkDirMount = toMount(Collections.singletonList(containerWorkDir.toUri().getPath()));
@@ -210,11 +219,14 @@ public class DockerContainerExecutor extends ContainerExecutor {
         .append("--net="+net)
         .append(" ")
         .append(" --name " + containerIdStr)
-        .append(localDirMount)
-        .append(logDirMount)
+        .append(workdir)
+     //   .append(localDirMount)
+     //   .append(logDirMount)
         .append(containerWorkDirMount)
         .append(" ")
         .append(containerImageName)
+        .append(" ")
+        .append(dockerScript)
         .toString();
     String dockerPidScript = "`" + dockerExecutor + " inspect --format {{.State.Pid}} " + containerIdStr + "`";
     // Create new local launch wrapper script
@@ -237,7 +249,8 @@ public class DockerContainerExecutor extends ContainerExecutor {
           ContainerExecutor.TASK_LAUNCH_SCRIPT_PERMISSION);
 
       // Setup command to run
-      String[] command = getRunCommand(sb.getWrapperScriptPath().toString(),
+      String[] command = getRunCommand(
+    		  sb.getWrapperScriptPath().toString(),
         containerIdStr, userName, pidFile, this.getConf());
       if (LOG.isDebugEnabled()) {
         LOG.debug("launchContainer: " + commandStr + " " + Joiner.on(" ").join(command));
@@ -517,8 +530,7 @@ public class DockerContainerExecutor extends ContainerExecutor {
         pout.println();
         pout.println("echo "+ dockerPidScript +" > " + pidFile.toString() + ".tmp");
         pout.println("/bin/mv -f " + pidFile.toString() + ".tmp " + pidFile);
-        pout.println(dockerCommand + " bash \"" +
-          launchDst.toUri().getPath().toString() + "\"");
+        pout.println(dockerCommand );
       } finally {
         IOUtils.cleanup(LOG, pout, out);
       }
