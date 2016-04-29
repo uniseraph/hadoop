@@ -26,7 +26,7 @@
 
 <property>
   <name>yarn.nodemanager.container-executor.class</name>
-  <value>org.apache.hadoop.yarn.server.nodemanager.DockerContainerExecutor</value>
+  <value>org.apache.hadoop.yarn.server.nodemanager.AcsDockerContainerExecutor</value>
   <description>
      This is the container executor setting that ensures that all
 jobs are started with the DockerContainerExecutor.

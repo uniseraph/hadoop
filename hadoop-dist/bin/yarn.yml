@@ -18,8 +18,8 @@ nm1:
    - /var/run/docker.sock:/var/run/docker.sock
   environment:
    - "affinity:container!=*nodemanager*"
-   - "YARN_ROOT_LOGGER=DEBUG,console"
-   - "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm1 "
+   - "YARN_ROOT_LOGGER=INFO,console"
+   - "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm1 -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8111 "
    #- "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm1 -Dyarn.nodemanager.docker-container-executor.exec-name=/usr/bin/docker -Dyarn.nodemanager.container-executor.class=org.apache.hadoop.yarn.server.nodemanager.NativeDockerExecutor"
 nm2:
   image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-dev
@@ -33,22 +33,22 @@ nm2:
    - /var/run/docker.sock:/var/run/docker.sock
   environment:
    - "affinity:container!=*nodemanager*"
-   - "YARN_ROOT_LOGGER=DEBUG,console"
-   - "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm2 "
+   - "YARN_ROOT_LOGGER=INFO,console"
+   - "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm2 -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8111"
    #- "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm2 -Dyarn.nodemanager.docker-container-executor.exec-name=/usr/bin/docker -Dyarn.nodemanager.container-executor.class=org.apache.hadoop.yarn.server.nodemanager.NativeDockerExecutor"
-nm3:
+nm0:
   image: acs-reg.alipay.com/hadoop/hadoop:2.7.2-dev
   restart: always
   net: ${NETWORK}
-  hostname: nm3
-  container_name: nm3
+  hostname: nm0
+  container_name: nm0
   command: ./bin/yarn --config ./etc/hadoop  nodemanager
   volumes:
    - /usr/bin/docker:/usr/bin/docker
    - /var/run/docker.sock:/var/run/docker.sock
   environment:
    - "affinity:container!=*nodemanager*"
-   - "YARN_ROOT_LOGGER=DEBUG,console"
-   - "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm3"
+   - "YARN_ROOT_LOGGER=INFO,console"
+   - "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm0 -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8111"
    #- "YARN_NODEMANAGER_OPTS=-Dyarn.resourcemanager.hostname=rm1 -Dyarn.nodemanager.hostname=nm3 -Dyarn.nodemanager.docker-container-executor.exec-name=/usr/bin/docker -Dyarn.nodemanager.container-executor.class=org.apache.hadoop.yarn.server.nodemanager.NativeDockerExecutor"
 

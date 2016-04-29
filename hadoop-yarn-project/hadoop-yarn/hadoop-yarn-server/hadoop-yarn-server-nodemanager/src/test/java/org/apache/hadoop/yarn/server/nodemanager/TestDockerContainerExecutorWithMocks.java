@@ -61,7 +61,7 @@ public class TestDockerContainerExecutorWithMocks {
   private static final Log LOG = LogFactory
       .getLog(TestDockerContainerExecutorWithMocks.class);
   public static final String DOCKER_LAUNCH_COMMAND = "/bin/true";
-  private DockerContainerExecutor dockerContainerExecutor = null;
+  private AcsDockerContainerExecutor dockerContainerExecutor = null;
   private LocalDirsHandlerService dirsHandler;
   private Path workDir;
   private FileContext lfs;
@@ -83,7 +83,7 @@ public class TestDockerContainerExecutorWithMocks {
     conf.set(YarnConfiguration.NM_LOG_DIRS, "/tmp/userlogs" + time);
     conf.set(YarnConfiguration.NM_DOCKER_CONTAINER_EXECUTOR_IMAGE_NAME, yarnImage);
     conf.set(YarnConfiguration.NM_DOCKER_CONTAINER_EXECUTOR_EXEC_NAME , DOCKER_LAUNCH_COMMAND);
-    dockerContainerExecutor = new DockerContainerExecutor();
+    dockerContainerExecutor = new AcsDockerContainerExecutor();
     dirsHandler = new LocalDirsHandlerService();
     dirsHandler.init(conf);
     dockerContainerExecutor.setConf(conf);
@@ -212,7 +212,7 @@ public class TestDockerContainerExecutorWithMocks {
     //get the script
     Path sessionScriptPath = new Path(workDir,
         Shell.appendScriptExtension(
-            DockerContainerExecutor.DOCKER_CONTAINER_EXECUTOR_SESSION_SCRIPT));
+            AcsDockerContainerExecutor.DOCKER_CONTAINER_EXECUTOR_SESSION_SCRIPT));
     LineNumberReader lnr = new LineNumberReader(new FileReader(sessionScriptPath.toString()));
     boolean cmdFound = false;
     List<String> localDirs = dirsToMount(dirsHandler.getLocalDirs());

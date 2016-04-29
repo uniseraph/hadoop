@@ -68,10 +68,10 @@ import static org.apache.hadoop.fs.CreateFlag.OVERWRITE;
 /**
  * This executor will launch a docker container and run the task inside the container.
  */
-public class DockerContainerExecutor extends ContainerExecutor {
+public class AcsDockerContainerExecutor extends ContainerExecutor {
 
   private static final Log LOG = LogFactory
-      .getLog(DockerContainerExecutor.class);
+      .getLog(AcsDockerContainerExecutor.class);
   public static final String DOCKER_CONTAINER_EXECUTOR_SCRIPT = "docker_container_executor";
   public static final String DOCKER_CONTAINER_EXECUTOR_SESSION_SCRIPT = "docker_container_executor_session";
 
@@ -82,7 +82,7 @@ public class DockerContainerExecutor extends ContainerExecutor {
   private final FileContext lfs;
   private final Pattern dockerImagePattern;
 
-  public DockerContainerExecutor() {
+  public AcsDockerContainerExecutor() {
     try {
       this.lfs = FileContext.getLocalFSFileContext();
       this.dockerImagePattern = Pattern.compile(DOCKER_IMAGE_PATTERN);
@@ -201,6 +201,8 @@ public class DockerContainerExecutor extends ContainerExecutor {
  
     if ( !Strings.isNullOrEmpty(workdir) ) {
     	workdir = " -w " + workdir;
+    }else{
+    	workdir = "";
     }
     
     String dockerScript= container.getLaunchContext().getEnvironment().get(YarnConfiguration.NM_DOCKER_CONTAINER_EXECUTOR_SCRIPT);
@@ -220,8 +222,8 @@ public class DockerContainerExecutor extends ContainerExecutor {
         .append(" ")
         .append(" --name " + containerIdStr)
         .append(workdir)
-     //   .append(localDirMount)
-     //   .append(logDirMount)
+        .append(localDirMount)
+        .append(logDirMount)
         .append(containerWorkDirMount)
         .append(" ")
         .append(containerImageName)
@@ -255,9 +257,21 @@ public class DockerContainerExecutor extends ContainerExecutor {
       if (LOG.isDebugEnabled()) {
         LOG.debug("launchContainer: " + commandStr + " " + Joiner.on(" ").join(command));
       }
+      
+      if(LOG.isDebugEnabled()){
+    	  LOG.debug("command length is "+ command.length);
+      }
+      
+      for(int i=0  ; i<command.length ; i++){
+    	  if(LOG.isDebugEnabled()){
+    		  LOG.debug("command :" + command[i]);
+    	  }
+      }
       shExec = new ShellCommandExecutor(
-          command,
+      //    new String[]{commandStr},
+    		  command,
           new File(containerWorkDir.toUri().getPath()),
+     //     null,
           container.getLaunchContext().getEnvironment());      // sanitized env
       if (isContainerActive(containerId)) {
         shExec.execute();
@@ -270,6 +284,7 @@ public class DockerContainerExecutor extends ContainerExecutor {
       if (null == shExec) {
         return -1;
       }
+      LOG.debug(e.getMessage(),e);
       int exitCode = shExec.getExitCode();
       LOG.warn("Exit code from container " + containerId + " is : " + exitCode);
       // 143 (SIGTERM) and 137 (SIGKILL) exit codes means the container was

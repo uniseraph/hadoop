@@ -69,7 +69,7 @@ public class TestDockerContainerExecutor {
   private static final Log LOG = LogFactory
       .getLog(TestDockerContainerExecutor.class);
   private static File workSpace = null;
-  private DockerContainerExecutor exec = null;
+  private AcsDockerContainerExecutor exec = null;
   private LocalDirsHandlerService dirsHandler;
   private Path workDir;
   private FileContext lfs;
@@ -115,7 +115,7 @@ public class TestDockerContainerExecutor {
     dockerExec = "docker " + dockerUrl;
     conf.set(YarnConfiguration.NM_DOCKER_CONTAINER_EXECUTOR_IMAGE_NAME, yarnImage);
     conf.set(YarnConfiguration.NM_DOCKER_CONTAINER_EXECUTOR_EXEC_NAME, dockerExec);
-    exec = new DockerContainerExecutor();
+    exec = new AcsDockerContainerExecutor();
     dirsHandler = new LocalDirsHandlerService();
     dirsHandler.init(conf);
     exec.setConf(conf);
